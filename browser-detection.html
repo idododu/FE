@@ -37,15 +37,15 @@
 
       <h3>如何实现浏览器检测</h3>
       <ul>
-        <li>用正则表达式解析userAgent字符串, 提取环境信息 <br>关于userAgent推荐NCZ大神的两篇文章<br><a href="https://www.nczonline.net/blog/2010/01/12/history-of-the-user-agent-string/">History of the user-agent string</a><br><a href="https://www.nczonline.net/blog/2013/03/27/internet-explorer-11s-user-agent-string-what-does-it-mean/">nternet Explorer 11′s user-agent string</a>还有<a href="http://www.w3school.com.cn/jsref/dom_obj_navigator.asp">w3cschool的手册: Navigator对象</a></li>
+        <li>用正则表达式解析userAgent字符串, 提取环境信息 <br>关于userAgent推荐NCZ大神的两篇文章<br><a href="https://www.nczonline.net/blog/2010/01/12/history-of-the-user-agent-string/">History of the user-agent string</a><br><a href="https://www.nczonline.net/blog/2013/03/27/internet-explorer-11s-user-agent-string-what-does-it-mean/">nternet Explorer 11′s user-agent string</a><br>还有<a href="http://www.w3school.com.cn/jsref/dom_obj_navigator.asp">w3cschool的手册: Navigator对象</a></li>
         <li>使用浏览器特殊属性来判断，比如IE下的StyleMedia属性, firefox的InstallerTrigger, chrome的chrome.webstore对象</li>
         <li>IE浏览器可以用微软的私有属性条件注释(conditional comments)来识别<br>
-        <pre><!–[if IE]> Only IE <![endif]–>
-<!–[if IE 5.0]> Only IE 5.0 <![endif]–>
-<!–[if gt IE 5.0]> Only IE 5.0+ <![endif]–>
-<!–[if lt IE 6]> Only IE 6- <![endif]–>
-<!–[if gte IE 6]> Only IE 6/+ <![endif]–>
-<!–[if lte IE 7]> Only IE 7/- <![endif]–></pre>
+        <pre>&lt;!–[if IE]> Only IE &lt;![endif]–>
+&lt;!–[if IE 5.0]> Only IE 5.0 &lt;![endif]–>
+&lt;!–[if gt IE 5.0]> Only IE 5.0+ &lt;![endif]–>
+&lt;!–[if lt IE 6]> Only IE 6- &lt;![endif]–>
+&lt;!–[if gte IE 6]> Only IE 6/+ &lt;![endif]–>
+&lt;!–[if lte IE 7]> Only IE 7/- &lt;![endif]–></pre>
         </li>
         <li>服务器端解析，如php下的<a href="https://github.com/WhichBrowser/Parser">whichbrowser</a></li>
       </ul>
@@ -57,10 +57,10 @@
         <thead>
           <tr>
             <th>&nbsp;</th>
-            <th>detect.js</th>
+            <th><a href="https://github.com/darcyclarke/Detect.js"></a>detect.js</th>
             <th><a href="https://github.com/ded/bowser">bowser.js</a></th>
-            <th>is.js</th>
-            <th>$.browser</th>
+            <th><a href="is.js.org">is.js</a></th>
+            <th><a href="http://api.jquery.com/jQuery.browser/">$.browser</a></th>
           </tr>
         </thead>
         <tr>
@@ -114,14 +114,14 @@
         </tr>
         <tr>
           <td>文件大小</td>
-          <td>未压缩49.5kb, 压缩25.6kb</td>
+          <td>未压缩49.5kb, <br>压缩25.6kb</td>
           <td>未压缩15.7kb</td>
-          <td>未压缩32.9 KB，压缩13.9kb</td>
+          <td>未压缩32.9 KB，<br>压缩13.9kb</td>
           <td>NA</td>
         </tr>
         <tr>
           <td>其他优点</td>
-          <td>可以自定义需要的正则表达式</td>
+          <td>可以自定义功能</td>
           <td></td>
           <td>提供了强大的判断功能（类型，正则，运算， 环境，时间...）</td>
           <td></td>
