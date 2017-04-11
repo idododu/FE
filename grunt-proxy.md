@@ -94,6 +94,7 @@ grunt.registerTask('server', [
    前端服务需要的cookie"Set-Cookie: JSESSIONID=404C538DA2FEC00E165D3B844AF2A06D; Path=/; HttpOnly"
    
    因为这个原因，修改了connect-modrewrite插件，在代理返回结果中将cookie的path属性强制设定为Path=/.然后提交了一个新的npm包。(很简单粗暴，更优雅的方式应该是为connect-modrewrite插件扩展一个事件/回调函数，可以让使用者在grunt中处理自己的逻辑)
+   
 3. Updated on 20170411: 增加了grunt-connect-proxy来进行websocket的转发
    
 ## 参考资料
