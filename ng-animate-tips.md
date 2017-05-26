@@ -56,8 +56,8 @@ myApp.config(function($animateProvider) {
 ```
 
 ## 参考资料
-http://docs.ngnice.com/api/ngAnimate
-http://www.runoob.com/angularjs/angularjs-animations.html
-http://www.cnblogs.com/linchen1987/p/3707239.html?utm_source=tuicool&utm_medium=referral
-http://www.cnblogs.com/leosx/p/4054818.html
-https://stackoverflow.com/questions/21249441/disable-nganimate-for-some-elements
+http://docs.ngnice.com/api/ngAnimate 
+http://www.runoob.com/angularjs/angularjs-animations.html 
+http://www.cnblogs.com/linchen1987/p/3707239.html?utm_source=tuicool&utm_medium=referral 
+http://www.cnblogs.com/leosx/p/4054818.html 
+https://stackoverflow.com/questions/21249441/disable-nganimate-for-some-elements 
