@@ -4,7 +4,7 @@
 于是开始
 
 # install
-跟随着官网上一步一步走下来，成功安装，没有什么太多好解释的。
+跟随着官网上一步一步走下来，成功安装，没有什么太多好解释的。   
 https://about.gitlab.com/installation/#centos-6
 
 # 其他资料
