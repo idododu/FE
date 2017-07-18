@@ -14,3 +14,5 @@ https://about.gitlab.com/installation/#centos-6
 [gitlab workflow overview](https://www.gitlab.com.cn/2016/10/25/gitlab-workflow-an-overview/)   
 [centos7 下参考 官方说明 搭建gitlab服务](https://segmentfault.com/a/1190000008291730)   
 [Gitlab 安装并修改http端口](https://low.bi/ubuntu-gitlab/)   
+[gitlab ci - ng protractor - demo](https://gitlab.com/planet-innovation/gitlab-ci-angular-webapp)   
+[gitlab ci安装步骤](http://www.tuicool.com/articles/iqUzMrq)   
