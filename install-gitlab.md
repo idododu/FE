@@ -7,12 +7,17 @@
 跟随着官网上一步一步走下来，成功安装，没有什么太多好解释的。   
 https://about.gitlab.com/installation/#centos-6
 
+自定义docker镜像
+修改
+
 # 其他资料
 [gitlab官网](https://gitlab.com/)   
 [gitlab中文网](https://docs.gitlab.com.cn)   
 [www-gitlab-com源码](https://gitlab.com/gitlab-com/www-gitlab-com/tree/master)   
+[gitlab 汉化](http://www.ywlinux.com/archives/166)   
 [gitlab workflow overview](https://www.gitlab.com.cn/2016/10/25/gitlab-workflow-an-overview/)   
 [centos7 下参考 官方说明 搭建gitlab服务](https://segmentfault.com/a/1190000008291730)   
 [Gitlab 安装并修改http端口](https://low.bi/ubuntu-gitlab/)   
 [gitlab ci - ng protractor - demo](https://gitlab.com/planet-innovation/gitlab-ci-angular-webapp)   
 [gitlab ci安装步骤](http://www.tuicool.com/articles/iqUzMrq)   
+[docker 修改已有镜像](http://edu.cnzz.cn/201509/96952310.shtml)   
