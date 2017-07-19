@@ -118,6 +118,9 @@ docker0 Link encap:Ethernet  HWaddr 00:00:00:00:00:00
     ...
     [runners.cache]
     ```
+- 还有bower的坑
+  问题： bower install很慢，都是从github下载的
+  解决方法： 现在docker中安装好Bower, ci执行`bower install --offline --allow-root`命令，来使用本地缓存
 
 ## 其他资料
 [gitlab官网](https://gitlab.com/)   
