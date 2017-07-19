@@ -87,15 +87,15 @@ docker0 Link encap:Ethernet  HWaddr 00:00:00:00:00:00
   原因：感谢GFW! [npm常用mirror](https://segmentfault.com/a/1190000004690758)   
   解决方法： 修改npm配置文件，设置常用依赖包的cdn url   
   
-    ```
-    vi ~/.npmrc
-    
-    sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
-    phantomjs_cdnurl=https://npm.taobao.org/mirrors/phantomjs
-    CHROMEDRIVER_CDNURL=http://npm.taobao.org/mirrors/chromedriver
-    electron_mirror=https://npm.taobao.org/mirrors/electron/
-    fsevents_binary_host_mirror=https://npm.taobao.org/mirrors/fsevents/
-    ```
+   ```
+   vi ~/.npmrc
+
+   sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+   phantomjs_cdnurl=https://npm.taobao.org/mirrors/phantomjs
+   CHROMEDRIVER_CDNURL=http://npm.taobao.org/mirrors/chromedriver
+   electron_mirror=https://npm.taobao.org/mirrors/electron/
+   fsevents_binary_host_mirror=https://npm.taobao.org/mirrors/fsevents/
+   ```
   
 - 设置完CDN URL变量之后，再跑CI, 好像可以装了，但是... 怎么它还是每次都要安装这些玩意呢？我不禁陷入了深深的沉思....
   问题： 每次install都要一堆的时间，很烦   
