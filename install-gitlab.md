@@ -7,20 +7,20 @@
 跟随着官网上一步一步走下来，成功安装，没有什么太多好解释的。   
 https://about.gitlab.com/installation/#centos-6
 
-接下来安装ci的时候就有坑了
+接下来安装ci的时候就有坑了   
 - 安装runner, 参考[安装文档](https://docs.gitlab.com/runner/install/linux-repository.html), 一切正常   
-- 配置`.gitlab-ci.yml`后提交，第一次跑CI报错：
+- 配置`.gitlab-ci.yml`后提交，第一次跑CI报错：   
   ```
   Using Docker executor with image pijzl/docker-node-karma-protractor-chrome ...   
   ERROR: Preparation failed: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
   ```
-  问题原因： 服务器上没有装docker
+  问题原因： 服务器上没有装docker   
   解决方法: 安装docker后解决   
-- 安装好docker后再次跑CI,仍然报错
+- 安装好docker后再次跑CI,仍然报错   
   ```
   fatal: unable to access 'http://gitlab-ci-token:xxxxxxxxxxxxxxxxxxxx@localhost/root/git-test.git/': Failed to connect to localhost port 80: Connection refused
   ```
-  问题原因: Runner启动的docker容器里无法访问localhost:80
+  问题原因: Runner启动的docker容器里无法访问localhost:80   
   解决方法：第一步： 使用`ifconfig`命令检查docker容器的ip地址是多少  
   
   ```
@@ -44,12 +44,12 @@ https://about.gitlab.com/installation/#centos-6
     [runners.cache]
   ```
   
-- 修改后再次执行CI，不由得“卧槽！终于跑到npm install了！”，但是紧接着又是一声“卧槽？怎么npm install这么慢，十几分钟了还没装好？”
-  问题
-  原因： npm registry被墙
-  解决方法： 设置npm registry源`npm config set registry https://registry.npm.taobao.org`
+- 修改后再次执行CI，不由得“卧槽！终于跑到npm install了！”，但是紧接着又是一声“卧槽？怎么npm install这么慢，十几分钟了还没装好？”   
+  原因： npm registry被墙   
+  解决方法： 设置npm registry源`npm config set registry https://registry.npm.taobao.org`   
 - 设置完cnpm registry后，唰唰唰npm install 命令跑的很快， 但是！但是还是报错！   
-  问题：
+  问题：  
+  
   ```
   npm ERR! phantomjs-prebuilt@2.1.14 install: `node install.js`
   npm ERR! Exit status 1
@@ -86,19 +86,23 @@ https://about.gitlab.com/installation/#centos-6
   ```
   原因：感谢GFW! [npm常用mirror](https://segmentfault.com/a/1190000004690758)   
   解决方法： 修改npm配置文件，设置常用依赖包的cdn url   
+  
   ```
-  # vi ~/.npmrc
+  vi ~/.npmrc
+
   sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
   phantomjs_cdnurl=https://npm.taobao.org/mirrors/phantomjs
   CHROMEDRIVER_CDNURL=http://npm.taobao.org/mirrors/chromedriver
   electron_mirror=https://npm.taobao.org/mirrors/electron/
   fsevents_binary_host_mirror=https://npm.taobao.org/mirrors/fsevents/
   ```
+  
 - 设置完CDN URL变量之后，再跑CI, 好像可以装了，但是... 怎么它还是每次都要安装这些玩意呢？我不禁陷入了深深的沉思....
   问题： 每次install都要一堆的时间，很烦   
   解决方法： [自定义docker镜像](http://edu.cnzz.cn/201509/96952310.shtml), 将需要的npm依赖全部安装在global中，虽然每个项目可能需要的依赖不一样，但是考虑到有很多相同的依赖，就先这样吧   
 - YEAH~ 我做了自己的docker镜像哎！修改，加载，运行CI... 哎， 怎么可能那么顺利呢？   
-  问题：
+  问题：   
+  
   ```
   Using Docker executor with image cn/ci-runner ...
   Using docker image caf323b112b9818d3116f3eb370aecafb9db2424512e53c982cdfbe5473aec9b for predefined container...
@@ -106,6 +110,7 @@ https://about.gitlab.com/installation/#centos-6
   ```
   原因： 如果没有设置registry的话，docker默认会去hub.docker.com加载镜像文件，但是因为这个cn/ci-runner没有push到hub.docker.com,docker无法加载，就会报错   
   解决方法： 使用本地镜像   
+  
   ```
   [runners.docker]
     extra_hosts = ["localhost:172.17.42.1"] # 增加extra_hosts设置
