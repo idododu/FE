@@ -21,30 +21,34 @@ https://about.gitlab.com/installation/#centos-6
   fatal: unable to access 'http://gitlab-ci-token:xxxxxxxxxxxxxxxxxxxx@localhost/root/git-test.git/': Failed to connect to localhost port 80: Connection refused
   ```
   问题原因: Runner启动的docker容器里无法访问localhost:80
-  解决方法：第一步： 使用`ifconfig`命令检查docker容器的ip地址是多少
+  解决方法：第一步： 使用`ifconfig`命令检查docker容器的ip地址是多少  
+  
   ```
-  docker0   Link encap:Ethernet  HWaddr 00:00:00:00:00:00  
-          inet addr:172.17.42.1  Bcast:0.0.0.0  Mask:255.255.0.0
+    docker0 Link encap:Ethernet  HWaddr 00:00:00:00:00:00
+          inet addr:172.17.42.1  Bcast:0.0.0.0  Mask:255.255.0.0
           inet6 addr: fe80::54b8:e8ff:fe43:5554/64 Scope:Link
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:693658 errors:0 dropped:0 overruns:0 frame:0
           TX packets:1044150 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0 
           RX bytes:153277725 (146.1 MiB)  TX bytes:1495669968 (1.3 GiB)
+  ```   
+  
+  第二步：修改`/etc/gitlab-runner/config.toml`配置文件，在runners.docker下增加extra_hosts(不需要重启gitlab-runner)   
+  
   ```
-  第二步：修改`/etc/gitlab-runner/config.toml`配置文件，在runners.docker下增加extra_hosts(不需要重启gitlab-runner)
-  ```
-  [runners.docker]
-    extra_hosts = ["localhost:172.17.42.1"] # 增加extra_hosts设置
-    pull_policy = "never"
-    ...
-  [runners.cache]
+    [runners.docker]
+      extra_hosts = ["localhost:172.17.42.1"] # 增加extra_hosts设置
+      pull_policy = "never"
+      ...
+    [runners.cache]
   ```
+  
 - 修改后再次执行CI，不由得“卧槽！终于跑到npm install了！”，但是紧接着又是一声“卧槽？怎么npm install这么慢，十几分钟了还没装好？”
   问题
   原因： npm registry被墙
   解决方法： 设置npm registry源`npm config set registry https://registry.npm.taobao.org`
-- 设置完cnpm registry后，唰唰唰npm install 命令跑的很快， 但是！但是还是报错！
+- 设置完cnpm registry后，唰唰唰npm install 命令跑的很快， 但是！但是还是报错！   
   问题：
   ```
   npm ERR! phantomjs-prebuilt@2.1.14 install: `node install.js`
@@ -61,6 +65,7 @@ https://about.gitlab.com/installation/#centos-6
   npm ERR! Or if that isn't available, you can get their info via:
   npm ERR!     npm owner ls phantomjs-prebuilt
   ```
+  
   ```
   > node-sass@4.5.3 install /builds/root/git-test/node_modules/node-sass
   > node scripts/install.js
@@ -79,8 +84,8 @@ https://about.gitlab.com/installation/#centos-6
 
       npm config set proxy http://example.com:8080
   ```
-  原因：感谢GFW! [npm常用mirror](https://segmentfault.com/a/1190000004690758)
-  解决方法： 修改npm配置文件，设置常用依赖包的cdn url
+  原因：感谢GFW! [npm常用mirror](https://segmentfault.com/a/1190000004690758)   
+  解决方法： 修改npm配置文件，设置常用依赖包的cdn url   
   ```
   # vi ~/.npmrc
   sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
@@ -90,17 +95,17 @@ https://about.gitlab.com/installation/#centos-6
   fsevents_binary_host_mirror=https://npm.taobao.org/mirrors/fsevents/
   ```
 - 设置完CDN URL变量之后，再跑CI, 好像可以装了，但是... 怎么它还是每次都要安装这些玩意呢？我不禁陷入了深深的沉思....
-  问题： 每次install都要一堆的时间，很烦
-  解决方法： [自定义docker镜像](http://edu.cnzz.cn/201509/96952310.shtml), 将需要的npm依赖全部安装在global中，虽然每个项目可能需要的依赖不一样，但是考虑到有很多相同的依赖，就先这样吧
-- YEAH~ 我做了自己的docker镜像哎！修改，加载，运行CI... 哎， 怎么可能那么顺利呢？
+  问题： 每次install都要一堆的时间，很烦   
+  解决方法： [自定义docker镜像](http://edu.cnzz.cn/201509/96952310.shtml), 将需要的npm依赖全部安装在global中，虽然每个项目可能需要的依赖不一样，但是考虑到有很多相同的依赖，就先这样吧   
+- YEAH~ 我做了自己的docker镜像哎！修改，加载，运行CI... 哎， 怎么可能那么顺利呢？   
   问题：
   ```
   Using Docker executor with image cn/ci-runner ...
   Using docker image caf323b112b9818d3116f3eb370aecafb9db2424512e53c982cdfbe5473aec9b for predefined container...
   ERROR: Preparation failed: Error: No such image: cn/ci-runner
   ```
-  原因： 如果没有设置registry的话，docker默认会去hub.docker.com加载镜像文件，但是因为这个cn/ci-runner没有push到hub.docker.com,docker无法加载，就会报错
-  解决方法： 使用本地镜像
+  原因： 如果没有设置registry的话，docker默认会去hub.docker.com加载镜像文件，但是因为这个cn/ci-runner没有push到hub.docker.com,docker无法加载，就会报错   
+  解决方法： 使用本地镜像   
   ```
   [runners.docker]
     extra_hosts = ["localhost:172.17.42.1"] # 增加extra_hosts设置
