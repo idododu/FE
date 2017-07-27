@@ -133,6 +133,7 @@ docker0 Link encap:Ethernet  HWaddr 00:00:00:00:00:00
     3. `root   html;\n index  index.html index.htm;`这两行也要加，因为我们使用`location ~* (.*)`重置了所有的请求匹配   
     4. `192.168.1.0/24`是指`192.168.1.0` - `192.168.1.254`的ip区段， 如果想匹配`192.168.*.*`可以使用`192.168.0.0/16`   
     5. 以后应该会有对应的配置项，[Issue 2198](https://gitlab.com/gitlab-org/omnibus-gitlab/issues/2198)中有人提出一个proposal   
+    6. 其实更好的ip权限控制应该是放在组里边或者跟`git command`相关，比如developer必须在`192.168.1.*`网段中才能`git clone/push/pull`源代码，gitlab的其他功能应该是全部可以访问的。参考[gitolite](http://gitolite.com/gitolite/cookbook/index.html#example-2-restricting-by-source-ip-address)和[github enterprise](https://help.github.com/enterprise/11.10.340/admin/articles/restricting-ssh-access-to-specific-hosts/)
 
 ## 其他资料
 [gitlab官网](https://gitlab.com/)   
