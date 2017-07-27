@@ -131,7 +131,8 @@ docker0 Link encap:Ethernet  HWaddr 00:00:00:00:00:00
     1. 此处修改不可以设置`location /`规则,因为gitlab自己的`gitlab-http.conf`中已经有对应的配置；   
     2. `proxy_cache off;\n proxy_pass  http://gitlab-workhorse;\n`这两行一定要加，不然全部报404错误   
     3. `root   html;\n index  index.html index.htm;`这两行也要加，因为我们使用`location ~* (.*)`重置了所有的请求匹配   
-    4. `192.168.1.0/24`是指`192.168.1.0` - `192.168.1.254`的ip区段， 如果想匹配`192.168.*.*`可以使用`192.168.0.0/16`
+    4. `192.168.1.0/24`是指`192.168.1.0` - `192.168.1.254`的ip区段， 如果想匹配`192.168.*.*`可以使用`192.168.0.0/16`   
+    5. 以后应该会有对应的配置项，[Issue 2198](https://gitlab.com/gitlab-org/omnibus-gitlab/issues/2198)中有人提出一个proposal   
 
 ## 其他资料
 [gitlab官网](https://gitlab.com/)   
