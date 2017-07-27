@@ -120,7 +120,18 @@ docker0 Link encap:Ethernet  HWaddr 00:00:00:00:00:00
     ```
 - 还有bower的坑
   问题： bower install很慢，都是从github下载的
-  解决方法： 现在docker中安装好Bower, ci执行`bower install --offline --allow-root`命令，来使用本地缓存
+  解决方法： 现在docker中安装好Bower, ci执行`bower install --offline --allow-root`命令，来使用本地缓存   
+- 设置nginx访问权限
+  问题： 跟公司自身的管理规则相结合，有时候可能需要设置固定某些网段才可以访问源代码
+  解决方法： 在`gitlab.rb`中增加`nginx['custom_gitlab_server_config']`设置
+  ```
+  nginx['custom_gitlab_server_config'] = "location ~* (.*) {\n allow 192.168.1.0/24; \n deny all;\n proxy_cache off;\n proxy_pass  http://gitlab-workhorse;\n root   html;\n index  index.html index.htm;}\n"
+  ```
+  注意：   
+    1. 此处修改不可以设置`location /`规则,因为gitlab自己的`gitlab-http.conf`中已经有对应的配置；   
+    2. `proxy_cache off;\n proxy_pass  http://gitlab-workhorse;\n`这两行一定要加，不然全部报404错误   
+    3. `root   html;\n index  index.html index.htm;`这两行也要加，因为我们使用`location ~* (.*)`重置了所有的请求匹配   
+    4. `192.168.1.0/24`是指`192.168.1.0` - `192.168.1.254`的ip区段， 如果想匹配`192.168.*.*`可以使用`192.168.0.0/16`
 
 ## 其他资料
 [gitlab官网](https://gitlab.com/)   
@@ -134,4 +145,6 @@ docker0 Link encap:Ethernet  HWaddr 00:00:00:00:00:00
 [gitlab ci - ng protractor - demo](https://gitlab.com/planet-innovation/gitlab-ci-angular-webapp)   
 [gitlab ci - maven](https://gitlab.com/snippets/1665449)   
 [gitlab ci安装步骤](http://www.tuicool.com/articles/iqUzMrq)   
-[docker 修改已有镜像](http://edu.cnzz.cn/201509/96952310.shtml)   
+[docker 修改已有镜像](http://edu.cnzz.cn/201509/96952310.shtml)
+[gitlab nginx配置官方文档](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md)   
+[nginx配置location总结](https://segmentfault.com/a/1190000002797606)   
