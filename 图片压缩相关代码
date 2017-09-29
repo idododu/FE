@@ -1,0 +1,45 @@
+// 图片转换成blob格式，实现图片压缩的效果
+var base64Image = function (param) {
+    var file = param.file; // 文件的信息
+    var widthInput = param.width ? param.width : 1366; // 传递过来的宽度
+    var ratioInput = param.ratio ? param.ratio : 0.75; // 压缩比率
+    var callback = param.callback ? param.callback : null; // 回调函数
+    
+    var reader = new FileReader();  // 创建一个FileReader对象
+    reader.readAsDataURL(file); // 开始读取指定的Blob对象或File对象中的内容
+    // 文件读取完成，触发onload事件
+    reader.onload = function () {
+        var image = new Image();
+        image.src = this.result;
+        image.onload = function () {
+            var canvas = document.createElement("canvas"); // 创建一个虚拟的canvas画布
+            var scale  = image.width / image.height;
+            canvas.width  = image.width < widthInput ? image.width : widthInput;
+            canvas.height = parseInt(canvas.width / scale);
+            canvas.getContext("2d").drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
+            var imageUrl = canvas.toDataURL("image/jpeg", ratioInput); // 将图片转为dataURL(base64)
+            if (callback) {
+                callback(imageUrl); // 执行回调函数
+            }
+        };
+    };
+};
+
+  base64Image({
+      file: item._file,         /*【必填】对应的上传元素 */
+      callback: function (imageUrl) {        /*【必填】处理成功后的回调函数*/
+        /*imageUrl为得到的图片base64数据，这里可以进行上传到服务器或者其他逻辑操作 */
+        var imageData = imageUrl.split(',')[1];
+        imageData = window.atob(imageData);  // 解码
+        var ia = new Uint8Array(imageData.length);
+        for (var i = 0; i < imageData.length; i++) {
+            ia[i] = imageData.charCodeAt(i);
+        };
+
+        // canvas.toDataURL 返回的默认格式就是 image/png
+        var blob = new Blob([ia], {type:"image/png"}); // 转成成blob格式
+       item._file = blob;
+       deferred.resolve();
+      },
+      ratio:$scope.imgRatio, /*【选填】压缩率默认0.75 */
+  })
