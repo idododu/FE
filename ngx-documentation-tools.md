@@ -28,7 +28,7 @@ Angular官方文档主要包括两部分内容
 
 
 ##### API文档生成示意图
-![](images/ngx-documentation/tools/g-api-flow.svg)
+![](images/ngx-documentation-tools/g-api-flow.svg)
 ```seq
 Note over Source Files: angular/packages/*.ts\n angular/packages/examples
 Source Files->docs meta data: readTypeScriptModules
@@ -39,7 +39,7 @@ Output JSON->Doc Viewer Component: NG Component
 Note over Doc Viewer Component: angular/aio/src/app/layout/doc-viewer\n AIO实用doc-viewer组件加载文档内容并显示在页面上
 ```
 ##### 其他类型文档（“快速上手”，“教程”，“核心知识”，“市场营销”）生成示意图
-![](images/ngx-documentation/tools/g-content-flow.svg)
+![](images/ngx-documentation-tools/g-content-flow.svg)
 ```seq
 Note over Source Files: angular/aio/content/*.md\n angular/aio/content/examples
 Source Files->docs meta data: 
