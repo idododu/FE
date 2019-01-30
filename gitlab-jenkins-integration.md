@@ -7,12 +7,12 @@ GitLab自己有CI/CD能力，但是目前项目中的发版工作使用Jenkins�
 答案当然是肯定的
 
 ## 配置步骤
-- 1. 查阅[官方配置文档](https://docs.gitlab.com/ee/integration/jenkins.html)
-- 2. 在Jenkins服务中安装插件[Jenkins GitLab](https://wiki.jenkins.io/display/JENKINS/GitLab+Plugin)和[Jenkins Git](https://wiki.jenkins.io/display/JENKINS/Git+Plugin)
-- 3. 参考[此文](https://github.com/jenkinsci/gitlab-plugin/wiki/Setup-Example)在Jenkins中进行API Token、GitLab插件配置
-- 4. 在Jenkins指定项目-“构建触发器”下"Build When a change is pushed to GitLab"中配置构建策略
-- 5. 在GitLab指定项目中Settings -> Integrations中增加jenkins webhook，webhook url在Jenkins指定项目-“构建触发器”-"Build When a change is pushed to GitLab"中有提供
-- 验证是否成功
+1. 查阅[官方配置文档](https://docs.gitlab.com/ee/integration/jenkins.html)
+2. 在Jenkins服务中安装插件[Jenkins GitLab](https://wiki.jenkins.io/display/JENKINS/GitLab+Plugin)和[Jenkins Git](https://wiki.jenkins.io/display/JENKINS/Git+Plugin)
+3. 参考[此文](https://github.com/jenkinsci/gitlab-plugin/wiki/Setup-Example)在Jenkins中进行API Token、GitLab插件配置
+4. 在Jenkins指定项目-“构建触发器”下"Build When a change is pushed to GitLab"中配置构建策略
+5. 在GitLab指定项目中Settings -> Integrations中增加jenkins webhook，webhook url在Jenkins指定项目-“构建触发器”-"Build When a change is pushed to GitLab"中有提供
+6. 验证是否成功
 
 ## 参考资料
 - [官方配置文档](https://docs.gitlab.com/ee/integration/jenkins.html)
